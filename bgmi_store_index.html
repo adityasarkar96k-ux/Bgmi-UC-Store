@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="mr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BGMI Store — Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b1220;--card:#0f1724;--accent:#f59e0b;--muted:#9aa5b1;--glass:rgba(255,255,255,0.04)}
+    *{box-sizing:border-box}html,body{height:100%}body{font-family:Inter,system-ui,Segoe UI,Arial;color:#e6eef6;background:linear-gradient(180deg,#071027 0%, #041022 100%);padding:32px}
+    .container{max-width:980px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ff7b7b);display:flex;align-items:center;justify-content:center;font-weight:800;color:#081224}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 6px 18px rgba(3,6,12,0.6);border:1px solid rgba(255,255,255,0.03)}
+    .center{text-align:center}
+    .uid-row{display:flex;gap:12px;align-items:center}
+    input[type=text]{flex:1;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:transparent;color:inherit;font-size:15px}
+    button.primary{background:var(--accent);border:none;padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+    .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
+    .pack{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+    .price{font-size:22px;font-weight:800}
+    .uc{color:var(--muted);font-weight:600}
+    .buy{margin-top:14px;width:100%;padding:10px;border-radius:10px;background:#0a2540;border:none;color:#fff;font-weight:700;cursor:pointer}
+    .muted{color:var(--muted)}
+    footer{color:var(--muted);text-align:center;margin-top:22px}
+
+    /* modal */
+    .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:flex;align-items:center;justify-content:center;z-index:60}
+    .modal{width:520px;max-width:92%;background:var(--card);border-radius:12px;padding:18px}
+    .pay-grid{display:flex;gap:8px;flex-wrap:wrap}
+    .pay-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;cursor:pointer}
+    .qr-wrap{display:flex;gap:14px;align-items:center}
+    .qr{width:170px;height:170px;background:#fff;display:flex;align-items:center;justify-content:center;border-radius:8px}
+    .countdown{font-weight:800;font-size:20px}
+    .small{font-size:13px;color:var(--muted)}
+
+    /* trust badges */
+    .trust{display:flex;gap:8px;align-items:center}
+    .badge{background:var(--glass);padding:8px 10px;border-radius:10px;font-weight:700;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">BG</div>
+        <div>
+          <h1>BGMI Store</h1>
+          <p class="lead">Premium | Trusted | Fast delivery — UID ավել करा आणि पुढे जा</p>
+        </div>
+      </div>
+      <div class="trust">
+        <div class="badge">Trusted Seller</div>
+        <div class="badge">24 hr Delivery</div>
+        <div class="badge">Secure QR Payment</div>
+      </div>
+    </header>
+
+    <!-- UID card -->
+    <div class="card" id="uidCard">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div>
+          <div class="muted">अपला UID (Login नको):</div>
+          <div class="uid-row" style="margin-top:8px">
+            <input id="uidInput" type="text" placeholder="उदा. 123456789" />
+            <button id="uidBtn" class="primary">Proceed</button>
+          </div>
+          <div class="small" style="margin-top:8px">UID टाकल्यानंतर फक्त त्या UID साठी पुढे पॅक्स दिसतील.</div>
+        </div>
+        <div class="center" style="min-width:160px">
+          <div style="font-weight:800;font-size:20px" id="playerName">Player: —</div>
+          <div class="muted" id="playerUid">UID: —</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Packs -->
+    <div id="packsArea" style="display:none">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <h2 style="margin:0">Available Packs</h2>
+            <div class="small">Select a pack and click Buy Now</div>
+          </div>
+          <div class="muted">Secure checkout · No account required</div>
+        </div>
+
+        <div class="packs" id="packsList" style="margin-top:12px"></div>
+      </div>
+    </div>
+
+    <footer class="muted">© BGMI Store — Demo layout. Replace QR with your payment QR. Hosted via GitHub Pages.</footer>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="modal" style="display:none" class="overlay">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div>
+          <div style="font-weight:800" id="modalTitle">Payment</div>
+          <div class="small" id="modalSub">Choose payment method — QR will be shown.</div>
+        </div>
+        <div><button id="closeModal" class="buy">Close</button></div>
+      </div>
+
+      <div style="margin-bottom:12px">
+        <div class="pay-grid">
+          <button class="pay-btn" data-method="phonepe">PhonePe</button>
+          <button class="pay-btn" data-method="gpay">GPay</button>
+          <button class="pay-btn" data-method="fampay">Fampay</button>
+          <button class="pay-btn" data-method="paytm">Paytm</button>
+        </div>
+      </div>
+
+      <div id="qrArea" style="display:none">
+        <div class="qr-wrap">
+          <div class="qr"><img id="qrImage" src="qr-placeholder.svg" alt="QR" style="width:90%;height:90%"/></div>
+          <div>
+            <div class="countdown" id="countdown">05:00</div>
+            <div class="small" id="countText">Complete payment using the same QR. Order will deliver within 24 hours.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button id="paidBtn" class="buy">I have paid</button>
+          <button id="cancelPay" class="buy" style="background:#2b2b2b">Cancel</button>
+        </div>
+      </div>
+
+      <div id="thankArea" style="display:none;margin-top:12px">
+        <div style="font-weight:800;font-size:18px">Thank you for your purchase!</div>
+        <div class="small">Your order will be delivered within 24 hours. Order ID: <span id="orderId"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Packs data — change prices/UC here
+    const packs = [
+      {id:1,price:199,uc:1250,tag:'Starter'},
+      {id:2,price:299,uc:4230,tag:'Value'},
+      {id:3,price:399,uc:6800,tag:'Best'},
+      {id:4,price:899,uc:35200,tag:'Mega'}
+    ];
+
+    // Elements
+    const uidInput = document.getElementById('uidInput');
+    const uidBtn = document.getElementById('uidBtn');
+    const playerName = document.getElementById('playerName');
+    const playerUid = document.getElementById('playerUid');
+    const packsArea = document.getElementById('packsArea');
+    const packsList = document.getElementById('packsList');
+    const modal = document.getElementById('modal');
+    const qrArea = document.getElementById('qrArea');
+    const qrImage = document.getElementById('qrImage');
+    const countdownEl = document.getElementById('countdown');
+    const thankArea = document.getElementById('thankArea');
+    const orderId = document.getElementById('orderId');
+
+    // Generate packs UI
+    function renderPacks(){
+      packsList.innerHTML = '';
+      packs.forEach(p=>{
+        const div = document.createElement('div');div.className='pack';
+        div.innerHTML = `<div style=\"display:flex;justify-content:space-between;align-items:center\"><div><div class=\"price\">₹${p.price}</div><div class=\"uc\">${p.uc} UC</div></div><div class=\"muted\">${p.tag}</div></div><div style=\"margin-top:10px\"><button class=\"buy\" data-id=\"${p.id}\">Buy Now</button></div>`;
+        packsList.appendChild(div);
+      })
+    }
+
+    // Simulate player name from UID (no login) — you can replace with real API if you have one
+    function uidToName(uid){
+      if(!uid) return '—';
+      return 'Player_'+uid.slice(-4);
+    }
+
+    uidBtn.addEventListener('click', ()=>{
+      const uid = uidInput.value.trim();
+      if(!uid){alert('कृपया UID टाका');return}
+      playerUid.textContent = 'UID: '+uid;
+      playerName.textContent = 'Player: '+uidToName(uid);
+      packsArea.style.display = 'block';
+      renderPacks();
+      // store current uid for ordering
+      sessionStorage.setItem('bgmi-uid', uid);
+    })
+
+    // Buy now handlers (delegated)
+    packsList.addEventListener('click', e=>{
+      const btn = e.target.closest('button[data-id]');
+      if(!btn) return;
+      const pid = Number(btn.getAttribute('data-id'));
+      const pack = packs.find(p=>p.id===pid);
+      openPaymentModal(pack);
+    })
+
+    // Payment modal behavior
+    function openPaymentModal(pack){
+      modal.style.display='flex';
+      document.getElementById('modalTitle').textContent = `Pay ₹${pack.price} for ${pack.uc} UC`;
+      qrArea.style.display='none';
+      thankArea.style.display='none';
+      // set a default placeholder QR (replace file in repo)
+      qrImage.src = 'qr-placeholder.svg';
+      // store selected pack
+      sessionStorage.setItem('bgmi-pack', JSON.stringify(pack));
+    }
+
+    document.getElementById('closeModal').addEventListener('click', ()=>{modal.style.display='none'});
+
+    // Payment method clicks
+    document.querySelectorAll('.pay-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const method = b.getAttribute('data-method');
+        // show single fixed QR regardless of method (requirement)
+        // NOTE: replace 'qr-placeholder.svg' with your actual QR image file path (PhonePe/GPay unified QR)
+        qrImage.src = 'qr-placeholder.svg';
+        qrArea.style.display='block';
+        startCountdown(5*60);
+      })
+    })
+
+    // countdown
+    let countdownTimer=null;
+    function startCountdown(sec){
+      clearInterval(countdownTimer);
+      let remaining = sec;
+      updateCountdown(remaining);
+      countdownTimer = setInterval(()=>{
+        remaining--; if(remaining<=0){clearInterval(countdownTimer);showThankYou();}else updateCountdown(remaining);
+      },1000)
+    }
+    function updateCountdown(remaining){
+      const m = Math.floor(remaining/60); const s = remaining%60; countdownEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    // Paid button
+    document.getElementById('paidBtn').addEventListener('click', ()=>{
+      // In a real system you'd verify payment. Here we just show thank you
+      clearInterval(countdownTimer); showThankYou();
+    })
+
+    document.getElementById('cancelPay').addEventListener('click', ()=>{modal.style.display='none';clearInterval(countdownTimer)});
+
+    function showThankYou(){
+      qrArea.style.display='none';
+      thankArea.style.display='block';
+      // create a simple order id
+      const uid = sessionStorage.getItem('bgmi-uid')||'unknown';
+      const pack = JSON.parse(sessionStorage.getItem('bgmi-pack')||'null');
+      const id = 'ORD'+Date.now().toString().slice(-6);
+      orderId.textContent = id + ' • ' + (pack?(`${pack.uc} UC`):'');
+      // message below is in English as requested
+      document.getElementById('modalSub').textContent = 'Thank you for purchase — your delivery will happen within 24 hr.';
+      // you can auto-close modal after some time if you like
+      // setTimeout(()=>{modal.style.display='none'},8000)
+    }
+
+    // initial setup: load stored uid if present
+    const savedUid = sessionStorage.getItem('bgmi-uid');
+    if(savedUid){uidInput.value=savedUid; uidBtn.click();}
+  </script>
+</body>
+</html>
