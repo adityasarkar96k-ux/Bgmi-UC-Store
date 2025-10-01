@@ -1,0 +1,42 @@
+:root {
+--bg: #0b1220;
+--card: #0f1724;
+--accent: #f59e0b;
+--muted: #9aa5b1;
+--glass: rgba(255,255,255,0.04);
+}
+* { box-sizing: border-box; }
+body {
+font-family: Inter, sans-serif;
+color: #e6eef6;
+background: linear-gradient(180deg, #071027 0%, #041022 100%);
+padding: 32px;
+}
+.container { max-width: 980px; margin: auto; }
+header { display: flex; justify-content: space-between; margin-bottom: 24px; }
+.brand { display: flex; gap: 14px; align-items: center; }
+.logo { width: 64px; height: 64px; border-radius: 12px; background: linear-gradient(135deg,var(--accent),#ff7b7b); display:flex; align-items:center; justify-content:center; font-weight:800; color:#081224; }
+h1 { margin: 0; font-size: 20px; }
+.lead { color: var(--muted); margin: 0; }
+.card { background: var(--glass); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+.uid-row { display: flex; gap: 12px; }
+input[type=text] { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); background: transparent; color: inherit; }
+button.primary { background: var(--accent); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+.packs { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 14px; }
+.pack { padding: 16px; border-radius: 12px; background: var(--glass); }
+.price { font-size: 22px; font-weight: 800; }
+.uc { color: var(--muted); font-weight: 600; }
+.buy { margin-top: 14px; width: 100%; padding: 10px; border-radius: 10px; background: #0a2540; border: none; color: #fff; font-weight: 700; cursor: pointer; }
+.cancel { background: #2b2b2b; }
+.overlay { position: fixed; inset: 0; background: rgba(2,6,23,0.6); display: flex; align-items: center; justify-content: center; z-index: 60; }
+.modal { width: 520px; max-width: 92%; background: var(--card); border-radius: 12px; padding: 18px; }
+.pay-grid { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+.pay-btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); background: transparent; cursor: pointer; }
+.qr-wrap { display: flex; gap: 14px; align-items: center; }
+.qr { width: 170px; height: 170px; background: #fff; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
+.countdown { font-weight: 800; font-size: 20px; }
+.small { font-size: 13px; color: var(--muted); }
+.thank-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
+.trust { display: flex; gap: 8px; }
+.badge { background: var(--glass); padding: 8px 10px; border-radius: 10px; font-weight: 700; color: var(--muted); }
+```
