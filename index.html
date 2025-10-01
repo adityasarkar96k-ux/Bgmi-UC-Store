@@ -1,0 +1,72 @@
+<!doctype html>
+<div class="muted" id="playerUid">UID: —</div>
+</div>
+</div>
+</div>
+
+
+<!-- Packs -->
+<div id="packsArea" style="display:none">
+<div class="card">
+<div class="pack-header">
+<div>
+<h2>Available Packs</h2>
+<div class="small">Select a pack and click Buy Now</div>
+</div>
+<div class="muted">Secure checkout · No account required</div>
+</div>
+<div class="packs" id="packsList"></div>
+</div>
+</div>
+
+
+<footer class="muted">© BGMI Store — Demo layout. Replace QR with your payment QR. Hosted via GitHub Pages.</footer>
+</div>
+
+
+<!-- Payment Modal -->
+<div id="modal" style="display:none" class="overlay">
+<div class="modal">
+<div class="modal-header">
+<div>
+<div id="modalTitle">Payment</div>
+<div class="small" id="modalSub">Choose payment method — QR will be shown.</div>
+</div>
+<div><button id="closeModal" class="buy">Close</button></div>
+</div>
+
+
+<div class="pay-grid">
+<button class="pay-btn" data-method="phonepe">PhonePe</button>
+<button class="pay-btn" data-method="gpay">GPay</button>
+<button class="pay-btn" data-method="fampay">Fampay</button>
+<button class="pay-btn" data-method="paytm">Paytm</button>
+</div>
+
+
+<div id="qrArea" style="display:none">
+<div class="qr-wrap">
+<div class="qr"><img id="qrImage" src="qr-placeholder.svg" alt="QR"/></div>
+<div>
+<div class="countdown" id="countdown">05:00</div>
+<div class="small" id="countText">Complete payment using the same QR. Order will deliver within 24 hours.</div>
+</div>
+</div>
+<div class="modal-actions">
+<button id="paidBtn" class="buy">I have paid</button>
+<button id="cancelPay" class="buy cancel">Cancel</button>
+</div>
+</div>
+
+
+<div id="thankArea" style="display:none">
+<div class="thank-title">Thank you for your purchase!</div>
+<div class="small">Your order will be delivered within 24 hours. Order ID: <span id="orderId"></span></div>
+</div>
+</div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
