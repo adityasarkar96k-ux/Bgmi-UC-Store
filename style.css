@@ -1,42 +1,118 @@
-:root {
---bg: #0b1220;
---card: #0f1724;
---accent: #f59e0b;
---muted: #9aa5b1;
---glass: rgba(255,255,255,0.04);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
-* { box-sizing: border-box; }
+
 body {
-font-family: Inter, sans-serif;
-color: #e6eef6;
-background: linear-gradient(180deg, #071027 0%, #041022 100%);
-padding: 32px;
+  background: #0d0d0d;
+  color: #fff;
 }
-.container { max-width: 980px; margin: auto; }
-header { display: flex; justify-content: space-between; margin-bottom: 24px; }
-.brand { display: flex; gap: 14px; align-items: center; }
-.logo { width: 64px; height: 64px; border-radius: 12px; background: linear-gradient(135deg,var(--accent),#ff7b7b); display:flex; align-items:center; justify-content:center; font-weight:800; color:#081224; }
-h1 { margin: 0; font-size: 20px; }
-.lead { color: var(--muted); margin: 0; }
-.card { background: var(--glass); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
-.uid-row { display: flex; gap: 12px; }
-input[type=text] { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); background: transparent; color: inherit; }
-button.primary { background: var(--accent); border: none; padding: 10px 14px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-.packs { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 14px; }
-.pack { padding: 16px; border-radius: 12px; background: var(--glass); }
-.price { font-size: 22px; font-weight: 800; }
-.uc { color: var(--muted); font-weight: 600; }
-.buy { margin-top: 14px; width: 100%; padding: 10px; border-radius: 10px; background: #0a2540; border: none; color: #fff; font-weight: 700; cursor: pointer; }
-.cancel { background: #2b2b2b; }
-.overlay { position: fixed; inset: 0; background: rgba(2,6,23,0.6); display: flex; align-items: center; justify-content: center; z-index: 60; }
-.modal { width: 520px; max-width: 92%; background: var(--card); border-radius: 12px; padding: 18px; }
-.pay-grid { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
-.pay-btn { flex: 1; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); background: transparent; cursor: pointer; }
-.qr-wrap { display: flex; gap: 14px; align-items: center; }
-.qr { width: 170px; height: 170px; background: #fff; display: flex; align-items: center; justify-content: center; border-radius: 8px; }
-.countdown { font-weight: 800; font-size: 20px; }
-.small { font-size: 13px; color: var(--muted); }
-.thank-title { font-weight: 800; font-size: 18px; margin-bottom: 5px; }
-.trust { display: flex; gap: 8px; }
-.badge { background: var(--glass); padding: 8px 10px; border-radius: 10px; font-weight: 700; color: var(--muted); }
-```
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 10%;
+  background: #111;
+  border-bottom: 2px solid #00ff99;
+}
+
+header .logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: #00ff99;
+}
+
+header .logo span {
+  color: #fff;
+}
+
+nav a {
+  margin-left: 20px;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #00ff99;
+}
+
+/* Hero */
+.hero {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("assets/bg.jpg") no-repeat center center/cover;
+}
+
+.hero-box {
+  background: rgba(0,0,0,0.8);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.hero-box input {
+  padding: 10px;
+  width: 250px;
+  margin: 15px 0;
+  border-radius: 8px;
+  border: none;
+}
+
+.hero-box button {
+  background: linear-gradient(90deg, #00ff99, #00ccff);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hero-box button:hover {
+  opacity: 0.8;
+}
+
+/* Steps */
+.steps {
+  padding: 50px 10%;
+  text-align: center;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.step {
+  width: 20%;
+}
+
+.step img {
+  width: 80px;
+}
+
+.step h3 {
+  color: #00ff99;
+  margin: 10px 0;
+}
+
+/* Footer */
+footer {
+  background: #111;
+  padding: 30px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+footer .socials a {
+  margin: 0 15px;
+  color: #00ff99;
+  text-decoration: none;
+}
