@@ -78,9 +78,9 @@ nav a:hover {
   opacity: 0.8;
 }
 
-/* How It Works Section */
+/* HOW IT WORKS */
 .how-it-works {
-  padding: 60px 10%;
+  padding: 70px 10%;
   background: #0f0f0f;
   text-align: center;
 }
@@ -88,45 +88,55 @@ nav a:hover {
 .how-it-works h2 {
   font-size: 32px;
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Grid layout: 2x2 steps */
 .steps-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  align-items: center;
+  justify-items: center;
 }
 
 .step {
-  width: 100%;
-  max-width: 600px;
-  background: #1b1b1b;
+  background: #1a1a1a;
   padding: 25px;
   border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .step:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(0, 255, 153, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 255, 153, 0.25);
 }
 
 .step img {
-  width: 60px;
+  width: 70px;
   margin-bottom: 15px;
 }
 
 .step h3 {
   color: #00ff99;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 10px;
 }
 
 .step p {
   color: #ccc;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
+}
+
+/* Responsive for mobile (1 column layout) */
+@media (max-width: 768px) {
+  .steps-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 
