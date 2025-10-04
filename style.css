@@ -109,7 +109,6 @@ nav a:hover {
 }
 
 
-/* Footer */
 footer {
   background: #111;
   padding: 30px;
@@ -117,8 +116,25 @@ footer {
   margin-top: 50px;
 }
 
-footer .socials a {
-  margin: 0 15px;
-  color: #00ff99;
-  text-decoration: none;
+footer h3 {
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+footer .socials {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+footer .socials img {
+  width: 35px;
+  height: 35px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+footer .socials img:hover {
+  transform: scale(1.2);
+  opacity: 0.8;
 }
